@@ -7,3 +7,16 @@ before_install:
 
 script:
   - docker run yosevuk/docker-ci-aws npm run test -- --coverage
+
+deploy:
+  provider: elasticbeanstalk
+  region: "us-east-2"
+  app: "docker-ci-aws"
+  env: "DockerCiAws-env"
+  bucket_name: "elasticbeanstalk-us-east-2-294673356461"
+  bucket_path: "docker-ci-aws"
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key:
+    secure: "$AWS_SECRET_KEY"
